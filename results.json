@@ -1,0 +1,30 @@
+{
+  "question": "Can a class-balanced, calibrated LightGBM model flag malicious entities more reliably than a standard random forest on a public cybersecurity dataset, with probability outputs analysts can trust?",
+  "method": "Stratified train/test split (fixed seed) on UCI Phishing Websites; baseline default RandomForestClassifier vs LightGBM with balanced class weights, CV-tuned on training data, isotonic calibration via cross-validation. Test set used once. Seeds 42-44; means reported.",
+  "dataset": {
+    "name": "UCI Phishing Websites (id=327)",
+    "source_url": "https://archive.ics.uci.edu/dataset/327/phishing+websites",
+    "n_rows": 11055,
+    "n_train": 8844,
+    "n_test": 2211,
+    "same_as_paper": false,
+    "baseline_is_papers_method": false
+  },
+  "metric_name": "PR-AUC (average precision) on held-out test set, malicious class",
+  "higher_is_better": true,
+  "baseline": "scikit-learn RandomForestClassifier with default settings (random_state=seed)",
+  "improved": "LightGBM with class_weight='balanced', hyperparameters chosen by cross-validated PR-AUC on the training set, and isotonic calibration of probabilities via cross-validation",
+  "metrics": {
+    "baseline_score": 0.9960264724096165,
+    "improved_score": 0.9968190985543356,
+    "improvement": 0.0007926261447190885,
+    "baseline_score_std": 9.863715729470617e-05,
+    "improved_score_std": 0.0,
+    "baseline_f1": 0.9729450865897641,
+    "improved_f1": 0.9727506426735218,
+    "baseline_brier": 0.01994994451209013,
+    "improved_brier": 0.017089938239372104,
+    "brier_improvement": 0.002860006272718027
+  },
+  "notes": "Phishing URLs are a proxy for darknet malicious actors, not the paper's data or task. Single split; differences of small magnitude may be within split variability. F1 uses a fixed 0.5 threshold on each model's probabilities. Hyperparameters were searched once with a fixed seed and a small grid for speed. The paper's own results are not stated, so no comparison to it is made."
+}

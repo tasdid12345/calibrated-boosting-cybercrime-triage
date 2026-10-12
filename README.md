@@ -23,6 +23,27 @@ python analysis.py
 
 Results are written to `results.json`. Charts are saved to `figures/`.
 
+## Results (latest run)
+
+On the public UCI Phishing Websites dataset, a standard random-forest classifier reached PR-AUC 0.996 on the held-out test set, while a class-balanced, calibrated LightGBM reached 0.997, a small gain within likely split variability, with F1 essentially unchanged (0.973 vs 0.973).
+
+| Metric | Value |
+|---|---|
+| baseline_score | 0.996 |
+| improved_score | 0.9968 |
+| improvement | 0.0007926 |
+| baseline_score_std | 0.00009864 |
+| improved_score_std | 0 |
+| baseline_f1 | 0.9729 |
+| improved_f1 | 0.9728 |
+| baseline_brier | 0.01995 |
+| improved_brier | 0.01709 |
+| brier_improvement | 0.00286 |
+
+Run on 2026-10-12. Full output: [results.json](results.json) · [run.log](run.log)
+
+Notes: Phishing URLs are a proxy for darknet malicious actors, not the paper's data or task. Single split; differences of small magnitude may be within split variability. F1 uses a fixed 0.5 threshold on each model's probabilities. Hyperparameters were searched once with a fixed seed and a small grid for speed. The paper's own results are not stated, so no comparison to it is made.
+
 ## Reference
 
 This project is motivated by the following paper:
